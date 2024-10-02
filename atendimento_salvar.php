@@ -23,7 +23,28 @@ and open the template in the editor.
 
         <form name="formServico" action="" method="post">
             <div id="body">
-
+                <?php 
+                    //1: PASSO INCLUIR AS CONFIGURAÇÕES DE ACESSO DE DADOS
+                    include "conexao_bd.php";
+                    //2: PASSO CAPTURAR OS DADOS  DIGITADOS
+                    $nome = $_POST["txtNome"];
+                    $id_servico = $_POST["selectServico"];
+                    $data_agendamento = $_POST["txtData"];
+                    $horario_agendamento = $_POST["selectHorario"];
+                    //3: PASSO MONTAR UM COMANDO SQL PARA INSERIR
+                    $sql = "INSERT INTO agendamento(nome,id_servico,data_agendamento,horario_agendamento) ";
+                    $sql .= " VALUES('$nome','$id_servico','$data_agendamento','$horario_agendamento')";
+                    //4: PASSO EXECUTAR NO BDA O COMANDO
+                    if (executarComando($sql))
+                    {
+                        echo "<h2>Serviço agendado!</h2>";
+                    }
+                    else
+                    {
+                        echo "<h2>Não foi possível agendar!</h2>";
+                    }
+                
+                ?>
                 
             </div>
         </form>
